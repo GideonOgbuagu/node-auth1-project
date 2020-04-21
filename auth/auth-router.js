@@ -25,4 +25,27 @@ router.get('/register', (req, res) => {
 })
 
 
+router.get('/login', (req, res) => {
+    const { username, password } = req.body;
+
+
+    //update the user password to hashed
+
+    Users.findBy({ username })
+         .then(([user]) => {
+             //if we find the user, then also  check that the password match
+             if (user && bcrypt.compareSync(password, user.password)) {
+                 req.session.loggedIn = true;
+                res.status(201).json({ message: `Welcome, ${user.username}`})
+             } else {
+                 res.status(401).json({ message: "You are cannot pass! "})
+             }
+         })
+         .catch(err => {
+             console.log(err);
+             res.status(500).json({errorMessage: err.message})
+         })
+})
+
+
 module.exports = router;

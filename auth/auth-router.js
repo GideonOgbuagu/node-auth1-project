@@ -3,7 +3,7 @@ const bcrypt  = require("bcryptjs");
 
 const Users = require('../users/users-model.js');
 
-router.get('/register', (req, res) => {
+router.post('/register', (req, res) => {
     const user = req.body;
 
     const rounds = process.env.HASH_ROUNDS || 12;
@@ -25,7 +25,7 @@ router.get('/register', (req, res) => {
 })
 
 
-router.get('/login', (req, res) => {
+router.post('/login', (req, res) => {
     const { username, password } = req.body;
 
 

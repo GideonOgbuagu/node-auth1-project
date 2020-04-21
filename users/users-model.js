@@ -1,4 +1,4 @@
-db = require('../dbConfig.js');
+const db = require('../dbConfig.js');
 
 module.exports = {
     add,
@@ -11,14 +11,15 @@ function find() {
    return db('users').select("id", "username", "password")
 }
 function findBy(entry) {
-    return db('users').where(entry).first();
+    return db('users').where(entry)
 }
 function findById(id) {
-    return db('users').where({ id: id }).first()
+    return db('users').where({ id }).first()
 
 }
 function add(user) {
-    const id = db('users').insert(user, "id").first()
-    return findById(id);
+    return db('users').insert(user, "id").then(([id]) => {
+        return findById(id)
+    })
 
 }

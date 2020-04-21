@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import User from './User'
 
-const FriendsList = () => {
+const Users = () => {
     const [users, setUsers] = useState([])
 
     useEffect(() => {
         const getUserData = () => {
             axios
-            .get('/api/friends')
+            .get('localhost:5500/api/users/')
             .then(res => {
                 //console.log(res)
                 setUsers(res.data)
@@ -35,4 +35,4 @@ const FriendsList = () => {
     )
 }
 
-export default FriendsList;
+export default Users;
